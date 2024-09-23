@@ -54,7 +54,6 @@ export default function InfoTechnical() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-512gb");
-      console.log("data512", data);
       setData16ProMax512(data);
     };
     fetchData();
@@ -62,7 +61,6 @@ export default function InfoTechnical() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-1tb");
-      console.log("data1tb", data);
       setData16ProMax1TB(data);
     };
     fetchData();
@@ -70,7 +68,6 @@ export default function InfoTechnical() {
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-256gb");
-      console.log("data256", data);
       setData16ProMax256(data);
     };
     fetchData();
