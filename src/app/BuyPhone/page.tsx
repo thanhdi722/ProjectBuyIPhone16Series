@@ -1,11 +1,15 @@
 import React from "react";
-import HeaderConponent from "../../Component/BuyPhoneComponent/HeaderComponent/HeaderConponent";
+import HeaderComponent from "../../Component/BuyPhoneComponent/HeaderComponent/HeaderConponent";
+import InfoTechnical from "../../Component/BuyPhoneComponent/InfoTechnical/InfoTechnical";
+import PrioritizePage from "../../Component/BuyPhoneComponent/prioritizePage/prioritizePage";
 function page() {
-    return (
-        <div >
-            <HeaderConponent />
-        </div>
-    );
+  return (
+    <div>
+      <HeaderComponent />
+      <InfoTechnical />
+      <PrioritizePage />
+    </div>
+  );
 }
 
 export default page;
