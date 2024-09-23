@@ -18,7 +18,7 @@ import { StaticImageData } from "next/image";
 import { Modal, Row, Col } from "antd";
 import { Form, Input } from "antd";
 import { FormProps } from "antd";
-// Types for the product and colors
+import { fetchProducts } from "../../../app/utils/utils";
 type GraphQLResponse = {
   data: {
     route: {
@@ -37,199 +37,150 @@ type GraphQLResponse = {
   };
 };
 
+type ProductImage = { [key: string]: StaticImageData };
+
 type Product = {
   productName: string;
-  productPrices: { [color: string]: string };
-  images: { [key: string]: StaticImageData };
+  productPrices: { [capacity: string]: { [color: string]: string } };
+  images: ProductImage;
+  capacities: string[];
   colors: Array<{ name: string; colorCode: string }>;
   productLink: string;
 };
-const query = `query getProducts(
-  $search: String
-  $filter: ProductAttributeFilterInput
-  $sort: ProductAttributeSortInput
-  $pageSize: Int
-  $currentPage: Int
-) {
-  products(
-    search: $search
-    filter: $filter
-    sort: $sort
-    pageSize: $pageSize
-    currentPage: $currentPage
-  ) {
-    items {
-      ...ProductInterfaceField
-    }
-    aggregations {
-      attribute_code
-      count
-      label
-      options {
-        count
-        label
-        value
-        swatch_data {
-          type
-          value
-        }
-      }
-      position
-    }
-    sort_fields {
-      default
-      options {
-        label
-        value
-      }
-    }
-    total_count
-    page_info {
-      current_page
-      page_size
-      total_pages
-    }  }
-}
-fragment ProductInterfaceField on ProductInterface {
- image_banner
-  __typename
-  sku
-  uid
-  name
-  url_key
-  url_suffix
-  canonical_url
-  stock_status
-  categories {
-    __typename
-    name
-    url_key
-    url_path
-    level
-    uid
-    position
-    icon_image
-    image
-    path
-  }
-  id
-  meta_description
-  meta_keyword
-  meta_title
-  new_from_date
-  new_to_date
-  rating_summary
-  review_count
-  thumbnail {
-    url
-    position
-  }
-  image {
-    url
-  }
-  price_range {
-    ...PriceRangeField
-  }
-  ...CustomField
-}
-fragment CustomField on ProductInterface {
-  color
-  country_of_manufacture
-  daily_sale {
-    end_date
-    entity_id
-    sale_price
-    sale_qty
-    saleable_qty
-    sold_qty
-    start_date
-    __typename
-  }
-  rating_summary_start {
-    star_1
-    star_2
-    star_3
-    star_4
-    star_5
-  }
-  attributes {
-    attribute_code
-    label
-    value
-  }
-}
-fragment PriceRangeField on PriceRange {
-  __typename
-  maximum_price {
-    ...ProductPriceField
-  }
-  minimum_price {
-    ...ProductPriceField
-  }
-}
-fragment ProductPriceField on ProductPrice {
-  discount {
-    amount_off
-    percent_off
-  }
-  final_price {
-    currency
-    value
-  }
-  regular_price {
-    currency
-    value
-  }
-} `;
-const variables = {
-  filter: {
-    category_uid: {
-      eq: "Mjgy",
-    },
-  },
-  pageSize: 20,
-  currentPage: 1,
-};
+
 export default function InfoTechnical() {
+  const [activeCapacity, setActiveCapacity] = useState("512GB");
+  const [data16ProMax512, setData16ProMax512] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-max-512gb");
+      console.log("data512", data);
+      setData16ProMax512(data);
+    };
+    fetchData();
+  }, []); const [data16ProMax1TB, setData16ProMax1TB] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-max-1tb");
+      console.log("data1tb", data);
+      setData16ProMax1TB(data);
+    };
+    fetchData();
+  }, []); const [data16ProMax256, setData16ProMax256] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-max-256gb");
+      console.log("data256", data);
+      setData16ProMax256(data);
+    };
+    fetchData();
+  }, []);
+  const [data16Pro1TB, setData16Pro1TB] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-1tb");
+      setData16Pro1TB(data);
+    };
+    fetchData();
+  }, []); const [data16Pro512, setData16Pro512] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-512gb");
+      setData16Pro512(data);
+    };
+    fetchData();
+  }, []); const [data16Pro256, setData16Pro256] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-256gb");
+      setData16Pro256(data);
+    };
+    fetchData();
+  }, []); const [data16Pro128, setData16Pro128] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-pro-128gb");
+      setData16Pro128(data);
+    };
+    fetchData();
+  }, []);
   const [productsData, setProductsData] = useState<GraphQLResponse | null>(
     null
   );
   useEffect(() => {
-    fetchProducts();
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-plus-512gb");
+      setProductsData(data);
+    };
+    fetchData();
   }, []);
-  const fetchProducts = async () => {
-    const response = await fetch(
-      "https://beta-api.bachlongmobile.com/graphql",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          query,
-          variables,
-        }),
-      }
-    );
-
-    const data = await response.json();
-    setProductsData(data);
-  };
-
+  const [data16Plus256, setData16Plus256] = useState<GraphQLResponse | null>(
+    null
+  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-plus-256gb");
+      setData16Plus256(data);
+    };
+    fetchData();
+  }, []);
+  const [data16Plus128, setData16Plus128] = useState<GraphQLResponse | null>(
+    null
+  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-plus-128gb");
+      setData16Plus128(data);
+    };
+    fetchData();
+  }, []);
+  const [data16512, setData16512] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-512gb");
+      setData16512(data);
+    };
+    fetchData();
+  }, []);
+  const [data16256, setData16256] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-256gb");
+      setData16256(data);
+    };
+    fetchData();
+  }, []);
+  const [data16128, setData16128] = useState<GraphQLResponse | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchProducts("iphone-16-128gb");
+      setData16128(data);
+    };
+    fetchData();
+  }, []);
   const [modal2Open, setModal2Open] = useState(false);
-  console.log("productsData", productsData);
   const products: Product[] = [
     {
       productName: "iPhone 16 Pro Max",
       productPrices: {
-        "Titan Đen": `${
-          productsData?.data?.route?.variants[0]?.product?.price_range?.minimum_price?.final_price?.value.toLocaleString(
-            "vi-VN"
-          ) ?? "N/A"
-        }`,
-        "Titan Sa Mạc": "45.690.000₫",
-        "Titan Tự Nhiên": "45.990.000₫",
-        "Titan Trắng": "45.990.000₫",
+        "1TB": {
+          "Titan Đen": `${data16ProMax1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}  `,
+          "Titan Sa Mạc": `${data16ProMax1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16ProMax1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16ProMax1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "512GB": {
+          "Titan Đen": `${data16ProMax512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16ProMax512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16ProMax512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16ProMax512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "256GB": {
+          "Titan Đen": `${data16ProMax256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16ProMax256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16ProMax256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16ProMax256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
       },
       images: {
         "Titan Đen": iphone16ProBlack,
@@ -237,12 +188,12 @@ export default function InfoTechnical() {
         "Titan Tự Nhiên": iphone16TitanPro,
         "Titan Trắng": iphone16WhitePro,
       },
-
+      capacities: ["1TB", "512GB", "256GB"],
       colors: [
         { name: "Titan Đen", colorCode: "rgb(60, 64, 66)" },
         { name: "Titan Sa Mạc", colorCode: "rgb(255, 218, 185)" },
         { name: "Titan Tự Nhiên", colorCode: "rgb(250, 235, 215)" },
-        { name: "Titan Trắng", colorCode: "rgb(232, 232, 232)	" },
+        { name: "Titan Trắng", colorCode: "rgb(251, 247, 244)" },
       ],
       productLink:
         "/dtdd/iphone-16-pro-max?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
@@ -250,10 +201,30 @@ export default function InfoTechnical() {
     {
       productName: "iPhone 16 Pro",
       productPrices: {
-        "Titan Đen": "42.690.000₫",
-        "Titan Sa Mạc": "42.690.000₫",
-        "Titan Tự Nhiên": "42.690.000₫",
-        "Titan Trắng": "42.690.000₫",
+        "1TB": {
+          "Titan Đen": `${data16Pro1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16Pro1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16Pro1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16Pro1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "512GB": {
+          "Titan Đen": `${data16Pro512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16Pro512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16Pro512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16Pro512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "256GB": {
+          "Titan Đen": `${data16Pro256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16Pro256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16Pro256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16Pro256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "128GB": {
+          "Titan Đen": `${data16Pro128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Sa Mạc": `${data16Pro128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Tự Nhiên": `${data16Pro128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Trắng": `${data16Pro128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
       },
       images: {
         "Titan Đen": iphone16ProBlack,
@@ -261,12 +232,12 @@ export default function InfoTechnical() {
         "Titan Tự Nhiên": iphone16TitanPro,
         "Titan Trắng": iphone16WhitePro,
       },
-
+      capacities: ["1TB", "512GB", "256GB", "128GB"],
       colors: [
         { name: "Titan Đen", colorCode: "rgb(60, 64, 66)" },
         { name: "Titan Sa Mạc", colorCode: "rgb(255, 218, 185)" },
         { name: "Titan Tự Nhiên", colorCode: "rgb(250, 235, 215)" },
-        { name: "Titan Trắng", colorCode: "rgb(232, 232, 232)	" },
+        { name: "Titan Trắng", colorCode: "rgb(251, 247, 244)" },
       ],
       productLink:
         "/dtdd/iphone-16-pro?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
@@ -274,11 +245,27 @@ export default function InfoTechnical() {
     {
       productName: "iPhone 16 Plus",
       productPrices: {
-        Đen: "33.690.000₫",
-        Trắng: "33.690.000₫",
-        "Xanh Mòng Két": "33.690.000₫",
-        Hồng: "33.690.000₫",
-        "Xanh Lưu Ly": "33.690.000₫",
+        "512GB": {
+          Đen: `${productsData?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${productsData?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${productsData?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${productsData?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${productsData?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "256GB": {
+          Đen: `${data16Plus256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${data16Plus256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${data16Plus256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${data16Plus256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${data16Plus256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "128GB": {
+          Đen: `${data16Plus128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${data16Plus128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${data16Plus128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${data16Plus128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${data16Plus128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
       },
       images: {
         Đen: iphone16Black,
@@ -287,10 +274,10 @@ export default function InfoTechnical() {
         Hồng: iphone16Pink,
         "Xanh Lưu Ly": iphone16Blue,
       },
-
+      capacities: ["512GB", "256GB", "128GB"],
       colors: [
         { name: "Đen", colorCode: "rgb(60, 64, 66)" },
-        { name: "Trắng", colorCode: "rgb(232, 232, 232)	" },
+        { name: "Trắng", colorCode: "rgb(251, 247, 244)" },
         { name: "Xanh Mòng Két", colorCode: "rgb(176, 212, 210)" },
         { name: "Hồng", colorCode: "rgb(255, 110, 180)" },
         { name: "Xanh Lưu Ly", colorCode: "rgb(72, 118, 255)" },
@@ -301,11 +288,27 @@ export default function InfoTechnical() {
     {
       productName: "iPhone 16",
       productPrices: {
-        Đen: "30.690.000₫",
-        Trắng: "30.690.000₫",
-        "Xanh Mòng Két": "30.690.000₫",
-        Hồng: "30.690.000₫",
-        "Xanh Lưu Ly": "30.690.000₫",
+        "512GB": {
+          Đen: `${data16512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${data16512?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${data16512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${data16512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${data16512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "256GB": {
+          Đen: `${data16256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${data16256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${data16256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${data16256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${data16256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
+        "128GB": {
+          Đen: `${data16128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Trắng: `${data16128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Mòng Két": `${data16128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Hồng: `${data16128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Xanh Lưu Ly": `${data16128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+        },
       },
       images: {
         Đen: iphone16Black,
@@ -314,9 +317,10 @@ export default function InfoTechnical() {
         Hồng: iphone16Pink,
         "Xanh Lưu Ly": iphone16Blue,
       },
+      capacities: ["512GB", "256GB", "128GB"],
       colors: [
         { name: "Đen", colorCode: "rgb(60, 64, 66)" },
-        { name: "Trắng", colorCode: "rgb(232, 232, 232)	" },
+        { name: "Trắng", colorCode: "rgb(251, 247, 244)" },
         { name: "Xanh Mòng Két", colorCode: "rgb(176, 212, 210)" },
         { name: "Hồng", colorCode: "rgb(255, 110, 180)" },
         { name: "Xanh Lưu Ly", colorCode: "rgb(72, 118, 255)" },
@@ -346,6 +350,16 @@ export default function InfoTechnical() {
   ) => {
     console.log("Failed:", errorInfo);
   };
+  const handleProductChange = (product: Product) => {
+    setActiveProduct(product);
+    setActiveCapacity(product.capacities[0]);
+    setActiveColor(product.colors[0].name);
+  };
+
+  const handleCapacityChange = (capacity: string) => {
+    setActiveCapacity(capacity);
+    setActiveColor(activeProduct.colors[0].name);
+  };
   return (
     <div className="container_info_technical">
       <div className="container">
@@ -362,11 +376,11 @@ export default function InfoTechnical() {
                 }}
               >
                 <InfoTechnicalComponent
+                  productLink={product.productLink}
                   productName={product.productName}
                   productPrices={product.productPrices}
-                  // productPrices={product.productPrices}
                   images={product.images}
-                  // capacities={product.capacities}
+                  capacities={product.capacities}
                   colors={product.colors}
                 />
               </div>
@@ -410,13 +424,13 @@ export default function InfoTechnical() {
               <div className="FromPrice">
                 <div className="productPriceFrom">
                   <span>Giá</span>
-                  <b>{activeProduct.productPrices[activeColor]}</b>
+                  <b>{activeProduct.productPrices[activeCapacity][activeColor]}</b>
                 </div>
                 <p>
                   Hoặc thanh toán:{" "}
                   {(
                     parseInt(
-                      activeProduct.productPrices[activeColor].replace(
+                      activeProduct.productPrices[activeCapacity][activeColor].replace(
                         /\D/g,
                         ""
                       )
@@ -436,27 +450,33 @@ export default function InfoTechnical() {
               Vui lòng chọn phiên bản yêu thích nhất của bạn
             </p>
             <div className="btn_productIphone">
-              <button className="btn_productIphone_item">
-                iPhone 16 Pro Max
-              </button>
-              <button className="btn_productIphone_item">iPhone 16 Pro</button>
-              <button className="btn_productIphone_item">iPhone 16 Plus</button>
-              <button className="btn_productIphone_item">iPhone 16</button>
+              {products.map((product, index) => (
+                <button
+                  key={index}
+                  className={`btn_productIphone_item ${product.productName === activeProduct.productName ? "active" : ""}`}
+                  onClick={() => handleProductChange(product)}
+                >
+                  {product.productName}
+                </button>
+              ))}
             </div>
             <div className="btn_productIphone" style={{ marginTop: "10px" }}>
-              <button className="btn_productIphone_item">128GB</button>
-              <button className="btn_productIphone_item">256GB</button>
-              <button className="btn_productIphone_item">512GB</button>
-              <button className="btn_productIphone_item">1TB</button>
+              {activeProduct.capacities.map((capacity, index) => (
+                <button
+                  key={index}
+                  className={`btn_productIphone_item ${capacity === activeCapacity ? "active" : ""}`}
+                  onClick={() => handleCapacityChange(capacity)}
+                >
+                  {capacity}
+                </button>
+              ))}
             </div>
             <div className="listColorProduct" style={{ marginTop: "10px" }}>
               {activeProduct.colors.map((color) => (
                 <div
                   key={color.name}
                   title={color.name}
-                  className={`${
-                    color.name === activeColor ? "active selected" : ""
-                  }`}
+                  className={`${color.name === activeColor ? "active selected" : ""}`}
                   style={{ backgroundColor: color.colorCode }}
                   onClick={() => setActiveColor(color.name)}
                 ></div>

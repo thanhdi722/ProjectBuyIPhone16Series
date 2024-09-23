@@ -6,18 +6,23 @@ import { StaticImageData } from "next/image";
 
 interface InfoTechnicalProps {
   productName: string;
-  productPrices: { [color: string]: string };
+  productPrices: { [capacity: string]: { [color: string]: string } };
   images: { [key: string]: StaticImageData };
+  capacities: string[];
   colors: { name: string; colorCode: string }[];
+  productLink: string;
 }
 
 export default function InfoTechnicalComponent({
   productName,
   productPrices,
   images,
+  capacities,
   colors,
+  productLink,
 }: InfoTechnicalProps) {
   const [activeColor, setActiveColor] = useState(colors[0].name);
+  const [activeCapacity, setActiveCapacity] = useState(capacities[0]);
   const getImageKey = (colorName: string) => {
     return colorName.replace("Màu ", "");
   };
@@ -48,23 +53,37 @@ export default function InfoTechnicalComponent({
             <div
               key={color.name}
               title={color.name}
-              className={`${
-                color.name === activeColor ? `active selected` : ""
-              }`}
+              className={`${color.name === activeColor ? `active selected` : ""
+                }`}
               style={{ backgroundColor: color.colorCode }}
               onClick={() => setActiveColor(color.name)}
             ></div>
           ))}
         </div>
+        <div className="listCapacity">
+          {capacities.map((capacity) => (
+            <div
+              key={capacity}
+              title={capacity}
+              className={`${capacity === activeCapacity ? "active" : ""} ${!productPrices[capacity] ? "disabled" : ""
+                }`}
+              onClick={() =>
+                productPrices[capacity] && setActiveCapacity(capacity)
+              }
+            >
+              {capacity}
+            </div>
+          ))}
+        </div>
         <div className="productPrice">
           <span>Giá</span>
-          <b>{productPrices[activeColor]}</b>
+          <b>{productPrices[activeCapacity][activeColor]}</b>
         </div>
         <div className="productPrice">
           <p>
             Hoặc thanh toán:{" "}
             {(
-              parseInt(productPrices[activeColor].replace(/\D/g, "")) / 12
+              parseInt(productPrices[activeCapacity][activeColor].replace(/\D/g, "")) / 12
             ).toLocaleString("vi-VN", {
               style: "currency",
               currency: "VND",

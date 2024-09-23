@@ -168,6 +168,10 @@
 .btn_submitBuyIphone:hover {
   background-color: rgb(255, 71, 71);
 }
+.btn_productIphone_item.active {
+  background-color: red;
+  color: white;
+}
 .col16_info_technical {
   padding-bottom: 20px;
 }
