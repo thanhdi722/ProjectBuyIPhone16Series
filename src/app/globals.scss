@@ -52,3 +52,9 @@ body {
 .bg-page {
   background: #010101;
 }
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 0;
+}

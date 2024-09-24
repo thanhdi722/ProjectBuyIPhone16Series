@@ -8,12 +8,13 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
+import { Spin } from 'antd';
 
 export interface Product {
-    id: number;
-    title: string;
-    oldPrice: string;
-    products: any[];
+  id: number;
+  title: string;
+  oldPrice: string;
+  products: any[];
 }
 
 
@@ -158,111 +159,112 @@ fragment ProductPriceField on ProductPrice {
 `;
 
 const variables = {
-    "filter": {
-        "category_uid": {
-            "eq": "NjQ="
-        }
-    },
-    "pageSize": 30,
-    "currentPage": 1
+  "filter": {
+    "category_uid": {
+      "eq": "NjQ="
+    }
+  },
+  "pageSize": 300,
+  "currentPage": 1
 };
 
 async function fetchEcosystemData() {
-    const response = await fetch('https://beta-api.bachlongmobile.com/graphql', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            query,
-            variables
-        })
-    });
+  const response = await fetch('https://beta-api.bachlongmobile.com/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables
+    })
+  });
 
-    const data = await response.json();
+  const data = await response.json();
 
-    return data.data.products.items;
+  return data.data.products.items;
 }
 
 const Ecosystem: React.FC = () => {
-    const { data, error, isLoading } = useQuery({
-        queryKey: ['ecosystemData'],
-        queryFn: fetchEcosystemData,
-        staleTime: 300000,
-    });
-    console.log('data', data);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['ecosystemData'],
+    queryFn: fetchEcosystemData,
+    staleTime: 300000,
+  });
 
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error loading data</div>;
+  if (isLoading) return <div className='loading'>
+    <Spin />
+  </div>;
+  if (error) return <div>Error loading data</div>;
 
-    return (
-        <div className='upgrade-list'>
-            <div className='container'>
-                <div className='upgrade'>
-                    <div className='upgrade-header'>
-                        <h3 className='upgrade-header-tt'>Hệ sinh thái Apple</h3>
+  return (
+    <div className='upgrade-list'>
+      <div className='container'>
+        <div className='upgrade'>
+          <div className='upgrade-header'>
+            <h3 className='upgrade-header-tt'>Hệ sinh thái Apple</h3>
+          </div>
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={10}
+            slidesPerView="auto"
+            speed={1000}
+            navigation
+            breakpoints={{
+              400: {
+                slidesPerView: 2,
+              },
+              576: {
+                slidesPerView: 3,
+              },
+              850: {
+                slidesPerView: 4,
+              },
+              1200: {
+                slidesPerView: 5,
+              },
+            }}
+          >
+            {data.map((product: any, index: number) => (
+              <SwiperSlide key={index}>
+                <Link
+                  href={`https://bachlongmobile.com/products/${product.url_key}`}
+                  passHref
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none', color: 'black' }}
+                >
+                  <div className='upgrade-item'>
+                    <div className="upgrade-item-img">
+                      <Image
+                        src={product.image.url}
+                        width={1400}
+                        height={1200}
+                        quality={100}
+                        alt={`product-${index}`}
+                      />
                     </div>
-                    <Swiper
-                        modules={[Navigation]}
-                        spaceBetween={10}
-                        slidesPerView="auto"
-                        speed={1000}
-                        navigation
-                        breakpoints={{
-                            400: {
-                                slidesPerView: 2,
-                            },
-                            576: {
-                                slidesPerView: 3,
-                            },
-                            850: {
-                                slidesPerView: 4,
-                            },
-                            1200: {
-                                slidesPerView: 5,
-                            },
-                        }}
-                    >
-                        {data.map((product: any, index: number) => (
-                            <SwiperSlide key={index}>
-                                <Link
-                                    href={`https://bachlongmobile.com/products/${product.url_key}`}
-                                    passHref
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    style={{ textDecoration: 'none', color: 'black' }}
-                                >
-                                    <div className='upgrade-item'>
-                                        <div className="upgrade-item-img">
-                                            <Image
-                                                src={product.image.url}
-                                                width={1400}
-                                                height={1200}
-                                                quality={100}
-                                                alt={`product-${index}`}
-                                            />
-                                        </div>
-                                        <div className="upgrade-item-content">
-                                            <h4 className='upgrade-item-content-tt'>
-                                                {product.name}
-                                            </h4>
-                                            <div className='upgrade-item-content-body'>
-                                                <span className='upgrade-item-content-body-tt'>Giá: </span>
-                                                <div className="upgrade-item-content-body-price">
-                                                    {product.price_range.minimum_price.final_price.value.toLocaleString('vi-VN')} {product.price_range.minimum_price.final_price.currency}
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-            </div>
+                    <div className="upgrade-item-content">
+                      <h4 className='upgrade-item-content-tt'>
+                        {product.name}
+                      </h4>
+                      <div className='upgrade-item-content-body'>
+                        <span className='upgrade-item-content-body-tt'>Giá: </span>
+                        <div className="upgrade-item-content-body-price">
+                          {product.price_range.minimum_price.final_price.value.toLocaleString('vi-VN')} {product.price_range.minimum_price.final_price.currency}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Ecosystem;

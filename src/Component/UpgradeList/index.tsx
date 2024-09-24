@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useState, useEffect } from 'react';
-import { Select } from 'antd';
+import { Select, Spin } from 'antd';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import Image from 'next/image';
@@ -13,8 +13,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export interface Product {
     id: number;
-    title: string;
-    oldPrice: string;
+    name: string;
+    price: string;
     products: any[];
 }
 
@@ -26,7 +26,6 @@ const UpgradeList: React.FC = () => {
     const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
     const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
         setSelectedSeries(value);
     };
 
@@ -40,99 +39,62 @@ const UpgradeList: React.FC = () => {
     };
 
 
-    const query = `
-    query getProducts(
-      $search: String
-      $filter: ProductAttributeFilterInput
-      $sort: ProductAttributeSortInput
-      $pageSize: Int
-      $currentPage: Int
-    ) {
-      products(
-        search: $search
-        filter: $filter
-        sort: $sort
-        pageSize: $pageSize
-        currentPage: $currentPage
-      ) {
-        items {
-          sku
-          uid
-          name
-          categories {
-            name
-          }
-          price_range {
-            minimum_price {
-              final_price {
-                value
-                currency
-              }
-            }
-          }
-          image {
-            url
-          }
-        }
-      }
-    }`;
 
-    const variables = {
-        "filter": {
-            "category_uid": {
-                "eq": "Mjgx"
-            }
-        },
-        "pageSize": 500,
-        "currentPage": 1
+    const fetchdata = async () => {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbz9mbHofFp5aVxWWZQMnvDDDcW0OKPjp6O17xtQ9IkPZ1EWGkWiDv1spMuQu1xOjM4/exec');
+        const data = await response.json();
+        return data;
     };
 
-    async function fetchListProductData() {
-        const response = await fetch('https://beta-api.bachlongmobile.com/graphql', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                query,
-                variables
-            })
-        });
-
-        const dataList = await response.json();
-        return dataList.data.products.items;
-    }
 
     const { data, error, isLoading } = useQuery({
-        queryKey: ['productData'],
-        queryFn: fetchListProductData,
+        queryKey: ['productListData'],
+        queryFn: fetchdata,
         staleTime: 300000,
     });
 
+
+
     useEffect(() => {
         if (data) {
+
             const filtered = data.filter((product: any) => {
-                const categoryName = product.categories.map((cat: any) => cat.name.toLowerCase());
-                if (selectedSeries === 'iphone13' && categoryName.includes('iphone 13 series')) {
+                const categoryName = product?.item?.category?.toLowerCase();
+
+                if (!categoryName) return false;
+
+                if (selectedSeries === 'iphone13' && categoryName.includes('iphone 13')) {
                     return true;
                 }
-                if (selectedSeries === 'iphone14' && categoryName.includes('iphone 14 series')) {
+                if (selectedSeries === 'iphone14' && categoryName.includes('iphone 14')) {
                     return true;
                 }
-                if (selectedSeries === 'iphone15' && categoryName.includes('iphone 15 series')) {
+                if (selectedSeries === 'iphone15' && categoryName.includes('iphone 15')) {
                     return true;
                 }
-                if (selectedSeries === 'iphone11' && categoryName.includes('iphone 11 series')) {
+                if (selectedSeries === 'iphone11' && categoryName.includes('iphone 11')) {
+                    return true;
+                }
+                if (selectedSeries === 'iphone12' && categoryName.includes('iphone 12')) {
+                    return true;
+                }
+                if (selectedSeries === 'iphonexs' && categoryName.includes('iphone xs')) {
                     return true;
                 }
                 return false;
             });
+
             setFilteredProducts(filtered);
         }
     }, [data, selectedSeries]);
 
-    if (isLoading) return <div>Loading...</div>;
+
+    if (isLoading) return <div className='loading'>
+        <Spin />
+    </div>;
     if (error) return <div>Error loading data</div>;
+
+
 
     return (
         <div className='upgrade-list'>
@@ -148,7 +110,9 @@ const UpgradeList: React.FC = () => {
                                 { value: 'iphone15', label: 'iPhone 15 Series' },
                                 { value: 'iphone14', label: 'iPhone 14 Series' },
                                 { value: 'iphone13', label: 'iPhone 13 Series' },
+                                { value: 'iphone12', label: 'iPhone 12 Series' },
                                 { value: 'iphone11', label: 'iPhone 11 Series' },
+                                { value: 'iphonexs', label: 'iPhone XS Series' },
                             ]}
                             placeholder="Chọn dòng máy bạn đang dùng"
                         />
@@ -177,14 +141,14 @@ const UpgradeList: React.FC = () => {
                         {filteredProducts.map((product: any, index: number) => (
                             <SwiperSlide key={index}>
                                 <div className='upgrade-item' onClick={() => showModal({
-                                    id: product.uid,
-                                    title: product.name,
-                                    oldPrice: `${product.price_range.minimum_price.final_price.value.toLocaleString('vi-VN')} ${product.price_range.minimum_price.final_price.currency}`,
+                                    id: product?.uid,
+                                    name: product?.item.name,
+                                    price: `${product?.item.price}`,
                                     products: []
                                 })}>
                                     <div className="upgrade-item-img">
                                         <Image
-                                            src={product.image.url}
+                                            src={product?.item.img}
                                             width={1400}
                                             height={1200}
                                             quality={100}
@@ -193,19 +157,19 @@ const UpgradeList: React.FC = () => {
                                     </div>
                                     <div className="upgrade-item-content">
                                         <h4 className='upgrade-item-content-tt'>
-                                            {product.name}
+                                            {product?.item.name}
                                         </h4>
                                         <div className='upgrade-item-content-body'>
-                                            <span className='upgrade-item-content-body-tt'>Giá: </span>
+                                            <span className='upgrade-item-content-body-tt'>Giá thu cũ: </span>
                                             <div className="upgrade-item-content-body-price">
-                                                {product.price_range.minimum_price.final_price.value.toLocaleString('vi-VN')} {product.price_range.minimum_price.final_price.currency}
+                                                {Number(product?.item.price).toLocaleString('vi-VN') + ' VNĐ'}
                                             </div>
                                         </div>
                                         <button
                                             className='upgrade-item-content-button'
                                             onClick={() => showModal(product)}
                                         >
-                                            Xem chi tiết
+                                            Xem giá đổi
                                         </button>
                                     </div>
                                 </div>
@@ -219,9 +183,9 @@ const UpgradeList: React.FC = () => {
                 isModalOpen={isModalOpen}
                 selectedProduct={selectedProduct ? {
                     id: selectedProduct.id,
-                    name: selectedProduct.title,
-                    price: 0,
-                    currency: 'VNĐ', products: []
+                    name: selectedProduct.name,
+                    price: selectedProduct.price,
+                    products: []
                 } : null}
                 handleCancel={handleCancel}
             />
