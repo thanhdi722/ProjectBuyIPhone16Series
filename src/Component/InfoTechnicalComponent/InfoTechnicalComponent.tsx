@@ -53,7 +53,7 @@ export default function InfoTechnicalComponent({
             style={{}}
           />
         </div>
-        <p style={{ textAlign: "center", marginBottom: "10px", color: "#000" }}>
+        <p style={{ textAlign: "center", marginBottom: "10px", color: "#000" }} className="colorName">
           {activeColor}
         </p>
         <div className="listColorProduct">
@@ -92,7 +92,7 @@ export default function InfoTechnicalComponent({
         </div>
         <div className="productPrice">
           <p>
-            Hoặc thanh toán:{" "}
+            Trá góp chỉ từ{" "}
             {(
               parseInt(
                 productPrices[activeCapacity][activeColor].replace(/\D/g, "")
@@ -101,7 +101,7 @@ export default function InfoTechnicalComponent({
               style: "currency",
               currency: "VND",
             })}{" "}
-            / tháng <br /> trong 12 tháng
+            /tháng
           </p>
         </div>
         <div>

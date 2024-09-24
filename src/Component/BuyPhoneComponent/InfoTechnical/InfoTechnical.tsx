@@ -6,8 +6,8 @@ import InfoTechnicalComponent from "../../../Component/InfoTechnicalComponent/In
 import iphone16Green from "../../../../public/Images/iphone/iphone-16-green.png";
 import iphone16Black from "../../../../public/Images/iphone/iphone16_Black.png";
 import iphone16ProBlack from "../../../../public/Images/iphone/iphone16_BlackPro.png";
-import iphone16WhitePro from "../../../../public/Images/iphone/iphone16_White.png";
-import iphone16White from "../../../../public/Images/iphone/iphone16_WhitePro.png";
+import iphone16White from "../../../../public/Images/iphone/iphone16_White.png";
+import iphone16WhitePro from "../../../../public/Images/iphone/iphone16_WhitePro.png";
 import iphone16Pink from "../../../../public/Images/iphone/iphone16_Pink.png";
 import iphone16Blue from "../../../../public/Images/iphone/iphone16_blue.png";
 import iphone16TitanPro from "../../../../public/Images/iphone/iphone16_titan.png";

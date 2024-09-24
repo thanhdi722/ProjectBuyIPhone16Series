@@ -211,15 +211,18 @@
   }
   
   .listCapacity {
-    height: 70px;
+    height: 60px;
   }
 }
 
 @media (max-width: 768px) {
+  .colorName {
+    display: none;
+  }
   .itemProduct {
     margin-left: 0px;
     margin-bottom: 10px;
-    padding: 20px 0 12px;
+    padding: 10px 0 6px;
   }
   
   .button_buy {
@@ -235,4 +238,21 @@
   .productPrice p {
     width: 50vw;
   }
+  .listCapacity {
+    margin: 0;
+  }
+  .wrapImg img {
+    width: 120px;
+    height: 120px;
+  }
+  .productPrice b {
+    font-size: 16px;
+    font-weight: 700;
+}
+.productPrice {
+  margin: 0 auto;
+}
+.wrapImg {
+  margin-bottom: 10px;
+}
 }
