@@ -92,7 +92,7 @@ export default function InfoTechnicalComponent({
         </div>
         <div className="productPrice">
           <p>
-            Trá góp chỉ từ{" "}
+            Trả góp chỉ từ{"  "}
             {(
               parseInt(
                 productPrices[activeCapacity][activeColor].replace(/\D/g, "")
