@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import HeaderPC from "../../../../public/Images/headerPC 1.svg";
+import HeaderPC from "../../../../public/Images/HEAD MO BAN iPhone 16.jpg";
 import HeaderMB from "../../../../public/Images/headerMB 1.svg";
 import dichvu1 from "../../../../public/Images/Asset 50.png";
 import dichvu2 from "../../../../public/Images/Asset 51.png";

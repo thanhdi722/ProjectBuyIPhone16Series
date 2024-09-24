@@ -50,7 +50,6 @@ type Product = {
 };
 
 export default function InfoTechnical() {
-  const [activeCapacity, setActiveCapacity] = useState("512GB");
   const [data16ProMax512, setData16ProMax512] =
     useState<GraphQLResponse | null>(null);
   useEffect(() => {
@@ -519,7 +518,9 @@ export default function InfoTechnical() {
   ];
   const [activeProduct, setActiveProduct] = useState(products[0]);
   const [activeColor, setActiveColor] = useState(activeProduct.colors[0].name);
-
+  const [activeCapacity, setActiveCapacity] = useState(
+    activeProduct.capacities[0]
+  );
   const getImageKey = (colorName: string) => {
     return colorName.replace("Màu ", "");
   };
@@ -643,8 +644,12 @@ export default function InfoTechnical() {
         </Modal>
 
         <Row className="row_info_technical" id="registerForm">
-          <Col span={8} className="col8_info_technical">
-            <div className="itemProduct">
+          <Col
+            span={8}
+            className="col8_info_technical"
+            style={{ display: "flex" }}
+          >
+            <div className="itemProductFrom">
               <div className="wrapImgFrom">
                 <Image
                   src={activeProduct.images[getImageKey(activeColor)]}
@@ -657,9 +662,7 @@ export default function InfoTechnical() {
                 <div className="productPriceFrom">
                   <span>Giá</span>
                   <b>
-                    {activeProduct.productPrices[activeCapacity][activeColor] ||
-                      data16ProMax512?.data.route.variants[0].product
-                        .price_range.minimum_price.final_price.value}
+                    {activeProduct.productPrices[activeCapacity][activeColor]}
                   </b>
                 </div>
                 <p>
@@ -680,7 +683,8 @@ export default function InfoTechnical() {
             </div>
           </Col>
           <Col span={16} className="col16_info_technical">
-            <h2 className="title_info_technical">Đặt hàng - Không cần cọc</h2>
+            <h2 className="title1_info_technical">Hàng hiếm kiếm Bạch Long</h2>
+            <h2 className="title_info_technical">Luôn sẳn hàng</h2>
             <p className="content_info_technical">
               Vui lòng chọn phiên bản yêu thích nhất của bạn
             </p>
@@ -779,7 +783,7 @@ export default function InfoTechnical() {
                 labelCol={{ span: 24 }}
                 wrapperCol={{ span: 24 }}
               >
-                <Radio.Group>
+                <Radio.Group defaultValue="Không">
                   <Radio value="Có">Có</Radio>
                   <Radio value="Không">Không</Radio>
                 </Radio.Group>
