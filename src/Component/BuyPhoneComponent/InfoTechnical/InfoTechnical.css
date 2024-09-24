@@ -175,7 +175,7 @@
   color: #000;
   word-break: break-word;
 }
-:where(.css-dev-only-do-not-override-qnu6hi).ant-form-item {
+.ant-form-item {
   margin-bottom: 0px;
 }
 .btn_submitBuyIphone {

@@ -554,7 +554,7 @@ export default function InfoTechnical() {
       };
 
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbyALe3k9BeUSU3KP2E5i9BW5F_wMvdJz6me76HCw5-2FQ_qQTcI4pndFXS8IcFa3_s/exec",
+        "https://script.google.com/macros/s/AKfycbway0bUP2UCWinnhAhTl1QF9vGuf_GRJcVYSYX47TG9rRpNB5WogC2VmcFBdUOXB8uY/exec",
         {
           method: "POST",
           mode: "no-cors",
