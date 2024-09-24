@@ -15,10 +15,11 @@ import iphone16DesertPro from "../../../../public/Images/iphone/iphone16_desert.
 import imagesModal from "../../../../public/Images/imagesSoSanh.jpg";
 import { RightCircleOutlined } from "@ant-design/icons";
 import { StaticImageData } from "next/image";
-import { Modal, Row, Col } from "antd";
+import { Modal, Row, Col, Radio } from "antd";
 import { Form, Input } from "antd";
 import { FormProps } from "antd";
 import { fetchProducts } from "../../../app/utils/utils";
+// import { FormInstance } from "antd/lib/form";
 type GraphQLResponse = {
   data: {
     route: {
@@ -50,21 +51,26 @@ type Product = {
 
 export default function InfoTechnical() {
   const [activeCapacity, setActiveCapacity] = useState("512GB");
-  const [data16ProMax512, setData16ProMax512] = useState<GraphQLResponse | null>(null);
+  const [data16ProMax512, setData16ProMax512] =
+    useState<GraphQLResponse | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-512gb");
       setData16ProMax512(data);
     };
     fetchData();
-  }, []); const [data16ProMax1TB, setData16ProMax1TB] = useState<GraphQLResponse | null>(null);
+  }, []);
+  const [data16ProMax1TB, setData16ProMax1TB] =
+    useState<GraphQLResponse | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-1tb");
       setData16ProMax1TB(data);
     };
     fetchData();
-  }, []); const [data16ProMax256, setData16ProMax256] = useState<GraphQLResponse | null>(null);
+  }, []);
+  const [data16ProMax256, setData16ProMax256] =
+    useState<GraphQLResponse | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-max-256gb");
@@ -72,28 +78,39 @@ export default function InfoTechnical() {
     };
     fetchData();
   }, []);
-  const [data16Pro1TB, setData16Pro1TB] = useState<GraphQLResponse | null>(null);
+  const [data16Pro1TB, setData16Pro1TB] = useState<GraphQLResponse | null>(
+    null
+  );
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-1tb");
       setData16Pro1TB(data);
     };
     fetchData();
-  }, []); const [data16Pro512, setData16Pro512] = useState<GraphQLResponse | null>(null);
+  }, []);
+  const [data16Pro512, setData16Pro512] = useState<GraphQLResponse | null>(
+    null
+  );
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-512gb");
       setData16Pro512(data);
     };
     fetchData();
-  }, []); const [data16Pro256, setData16Pro256] = useState<GraphQLResponse | null>(null);
+  }, []);
+  const [data16Pro256, setData16Pro256] = useState<GraphQLResponse | null>(
+    null
+  );
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-256gb");
       setData16Pro256(data);
     };
     fetchData();
-  }, []); const [data16Pro128, setData16Pro128] = useState<GraphQLResponse | null>(null);
+  }, []);
+  const [data16Pro128, setData16Pro128] = useState<GraphQLResponse | null>(
+    null
+  );
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchProducts("iphone-16-pro-128gb");
@@ -161,22 +178,58 @@ export default function InfoTechnical() {
       productName: "iPhone 16 Pro Max",
       productPrices: {
         "1TB": {
-          "Titan Đen": `${data16ProMax1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}  `,
-          "Titan Sa Mạc": `${data16ProMax1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16ProMax1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16ProMax1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16ProMax1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}  `,
+          "Titan Sa Mạc": `${data16ProMax1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16ProMax1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16ProMax1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "512GB": {
-          "Titan Đen": `${data16ProMax512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16ProMax512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16ProMax512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16ProMax512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16ProMax512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16ProMax512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16ProMax512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16ProMax512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "256GB": {
-          "Titan Đen": `${data16ProMax256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16ProMax256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16ProMax256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16ProMax256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16ProMax256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16ProMax256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16ProMax256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16ProMax256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
       },
       images: {
@@ -199,28 +252,76 @@ export default function InfoTechnical() {
       productName: "iPhone 16 Pro",
       productPrices: {
         "1TB": {
-          "Titan Đen": `${data16Pro1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16Pro1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16Pro1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16Pro1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16Pro1TB?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16Pro1TB?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16Pro1TB?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16Pro1TB?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "512GB": {
-          "Titan Đen": `${data16Pro512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16Pro512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16Pro512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16Pro512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16Pro512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16Pro512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16Pro512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16Pro512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "256GB": {
-          "Titan Đen": `${data16Pro256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16Pro256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16Pro256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16Pro256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16Pro256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16Pro256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16Pro256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16Pro256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "128GB": {
-          "Titan Đen": `${data16Pro128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Sa Mạc": `${data16Pro128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Tự Nhiên": `${data16Pro128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Titan Trắng": `${data16Pro128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          "Titan Đen": `${data16Pro128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Sa Mạc": `${data16Pro128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Tự Nhiên": `${data16Pro128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Titan Trắng": `${data16Pro128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
       },
       images: {
@@ -243,25 +344,70 @@ export default function InfoTechnical() {
       productName: "iPhone 16 Plus",
       productPrices: {
         "512GB": {
-          Đen: `${productsData?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${productsData?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${productsData?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${productsData?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${productsData?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${productsData?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${productsData?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${productsData?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${productsData?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${productsData?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "256GB": {
-          Đen: `${data16Plus256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${data16Plus256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${data16Plus256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${data16Plus256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${data16Plus256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${data16Plus256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${data16Plus256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${data16Plus256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${data16Plus256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${data16Plus256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "128GB": {
-          Đen: `${data16Plus128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${data16Plus128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${data16Plus128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${data16Plus128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${data16Plus128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${data16Plus128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${data16Plus128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${data16Plus128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${data16Plus128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${data16Plus128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
       },
       images: {
@@ -286,25 +432,70 @@ export default function InfoTechnical() {
       productName: "iPhone 16",
       productPrices: {
         "512GB": {
-          Đen: `${data16512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${data16512?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${data16512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${data16512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${data16512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${data16512?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${data16512?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${data16512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${data16512?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${data16512?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "256GB": {
-          Đen: `${data16256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${data16256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${data16256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${data16256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${data16256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${data16256?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${data16256?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${data16256?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${data16256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${data16256?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
         "128GB": {
-          Đen: `${data16128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Trắng: `${data16128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Mòng Két": `${data16128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          Hồng: `${data16128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
-          "Xanh Lưu Ly": `${data16128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString("vi-VN", { style: "currency", currency: "VND" })}`,
+          Đen: `${data16128?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Trắng: `${data16128?.data.route.variants[3].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Mòng Két": `${data16128?.data.route.variants[4].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          Hồng: `${data16128?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
+          "Xanh Lưu Ly": `${data16128?.data.route.variants[0].product.price_range.minimum_price.final_price.value.toLocaleString(
+            "vi-VN",
+            { style: "currency", currency: "VND" }
+          )}`,
         },
       },
       images: {
@@ -334,8 +525,50 @@ export default function InfoTechnical() {
   };
   type FieldType = {
     userName?: string;
-    phoneNumber?: string;
+    phoneNumber: string;
     email?: string;
+    tradeIn?: string;
+  };
+  const [form] = Form.useForm<FieldType>();
+  const handleSubmit = async (values: FieldType) => {
+    const { userName, phoneNumber, email, tradeIn } = values;
+    try {
+      const values = await form.validateFields();
+      const randomNum = Math.floor(Math.random() * 10000)
+        .toString()
+        .padStart(4, "0");
+
+      const id = "IP16" + values.phoneNumber.slice(6, 10) + "-" + randomNum;
+
+      const data = {
+        id,
+        userName,
+        phoneNumber,
+        email,
+        product: activeProduct.productName,
+        storage: activeCapacity,
+        color: activeColor,
+        price: activeProduct.productPrices[activeCapacity][activeColor],
+        tradeIn,
+      };
+
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbyALe3k9BeUSU3KP2E5i9BW5F_wMvdJz6me76HCw5-2FQ_qQTcI4pndFXS8IcFa3_s/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
+      console.log(response);
+      console.log("Form submitted successfully");
+      form.resetFields();
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
   const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
@@ -357,6 +590,7 @@ export default function InfoTechnical() {
     setActiveCapacity(capacity);
     setActiveColor(activeProduct.colors[0].name);
   };
+
   return (
     <div className="container_info_technical">
       <div className="container">
@@ -369,7 +603,8 @@ export default function InfoTechnical() {
                 className="productItem"
                 onClick={() => {
                   setActiveProduct(product);
-                  setActiveColor(product.colors[0].name); // Set default color
+                  setActiveColor(product.colors[0].name);
+                  setActiveCapacity(product.capacities[0]);
                 }}
               >
                 <InfoTechnicalComponent
@@ -421,16 +656,17 @@ export default function InfoTechnical() {
               <div className="FromPrice">
                 <div className="productPriceFrom">
                   <span>Giá</span>
-                  <b>{activeProduct.productPrices[activeCapacity][activeColor]}</b>
+                  <b>
+                    {activeProduct.productPrices[activeCapacity][activeColor]}
+                  </b>
                 </div>
                 <p>
                   Hoặc thanh toán:{" "}
                   {(
                     parseInt(
-                      activeProduct.productPrices[activeCapacity][activeColor].replace(
-                        /\D/g,
-                        ""
-                      )
+                      activeProduct.productPrices[activeCapacity][
+                        activeColor
+                      ].replace(/\D/g, "")
                     ) / 12
                   ).toLocaleString("vi-VN", {
                     style: "currency",
@@ -450,7 +686,11 @@ export default function InfoTechnical() {
               {products.map((product, index) => (
                 <button
                   key={index}
-                  className={`btn_productIphone_item ${product.productName === activeProduct.productName ? "active" : ""}`}
+                  className={`btn_productIphone_item ${
+                    product.productName === activeProduct.productName
+                      ? "active"
+                      : ""
+                  }`}
                   onClick={() => handleProductChange(product)}
                 >
                   {product.productName}
@@ -461,7 +701,9 @@ export default function InfoTechnical() {
               {activeProduct.capacities.map((capacity, index) => (
                 <button
                   key={index}
-                  className={`btn_productIphone_item ${capacity === activeCapacity ? "active" : ""}`}
+                  className={`btn_productIphone_item ${
+                    capacity === activeCapacity ? "active" : ""
+                  }`}
                   onClick={() => handleCapacityChange(capacity)}
                 >
                   {capacity}
@@ -473,13 +715,16 @@ export default function InfoTechnical() {
                 <div
                   key={color.name}
                   title={color.name}
-                  className={`${color.name === activeColor ? "active selected" : ""}`}
+                  className={`${
+                    color.name === activeColor ? "active selected" : ""
+                  }`}
                   style={{ backgroundColor: color.colorCode }}
                   onClick={() => setActiveColor(color.name)}
                 ></div>
               ))}
             </div>
             <Form
+              form={form}
               name="basic"
               style={{ maxWidth: 600, margin: "0 auto" }}
               initialValues={{ remember: true }}
@@ -526,7 +771,23 @@ export default function InfoTechnical() {
               >
                 <Input className="input_info_technical" />
               </Form.Item>
-              <button className="btn_submitBuyIphone">Đặt hàng</button>
+              <Form.Item<FieldType>
+                label="Bạn có muốn Thu cũ - Đổi mới"
+                name="tradeIn"
+                labelCol={{ span: 24 }}
+                wrapperCol={{ span: 24 }}
+              >
+                <Radio.Group>
+                  <Radio value="Có">Có</Radio>
+                  <Radio value="Không">Không</Radio>
+                </Radio.Group>
+              </Form.Item>
+              <button
+                onClick={() => handleSubmit(form.getFieldsValue())}
+                className="btn_submitBuyIphone"
+              >
+                Đặt hàng
+              </button>
             </Form>
           </Col>
         </Row>
