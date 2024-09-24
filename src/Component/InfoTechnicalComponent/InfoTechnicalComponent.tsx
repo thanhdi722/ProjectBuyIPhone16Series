@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import "./infoTechnicalComponent.css";
+import "./InfoTechnical.css";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 
