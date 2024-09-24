@@ -80,6 +80,11 @@
     flex: 1 1 calc(33.33% - 10px);
     margin: 5px;
   }
+  .uudai_images {
+    flex: 0 1 calc(33.33% - 10px); /* 3 items per row */
+    max-width: 33% !important; /* Đảm bảo hình ảnh không vượt quá container */
+    height: auto; /* Giữ tỷ lệ khung hình */
+  }
 }
 @media (max-width: 768px) {
   .promo_card_title {
@@ -142,4 +147,16 @@
     max-width: 30%; /* Đảm bảo hình ảnh không vượt quá container */
     height: auto; /* Giữ tỷ lệ khung hình */
   }
+}
+.uudai_images {
+  flex: 0 1 calc(16.66% - 10px); /* 3 items per row */
+  max-width: 16%; /* Đảm bảo hình ảnh không vượt quá container */
+  height: auto; /* Giữ tỷ lệ khung hình */
+}
+.uudai_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Khoảng cách giữa các item */
 }

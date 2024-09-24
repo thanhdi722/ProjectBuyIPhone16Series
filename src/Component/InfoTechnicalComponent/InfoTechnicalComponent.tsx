@@ -1,9 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import "./InfoTechnical.css";
+import React, { useEffect, useState } from "react";
+import "./infoTechnical.css";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
-
+import Link from "next/link";
 interface InfoTechnicalProps {
   productName: string;
   productPrices: { [capacity: string]: { [color: string]: string } };
@@ -11,6 +11,7 @@ interface InfoTechnicalProps {
   capacities: string[];
   colors: { name: string; colorCode: string }[];
   productLink: string;
+  onSendData: (data: string) => void;
 }
 
 export default function InfoTechnicalComponent({
@@ -18,19 +19,27 @@ export default function InfoTechnicalComponent({
   productPrices,
   images,
   capacities,
+  productLink,
   colors,
+  onSendData,
 }: InfoTechnicalProps) {
   const [activeColor, setActiveColor] = useState(colors[0].name);
   const [activeCapacity, setActiveCapacity] = useState(capacities[0]);
   const getImageKey = (colorName: string) => {
     return colorName.replace("Màu ", "");
   };
-  const scrollToRegisterForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const registerForm = document.getElementById("registerForm");
-    if (registerForm) {
-      registerForm.scrollIntoView({ behavior: "smooth" });
-    }
+  // const scrollToRegisterForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  //   e.preventDefault();
+  //   const registerForm = document.getElementById("registerForm");
+  //   if (registerForm) {
+  //     registerForm.scrollIntoView({ behavior: "smooth" });
+  //   }
+  // };
+  useEffect(() => {
+    onSendData(activeCapacity);
+  }, [activeCapacity]);
+  const sendData = () => {
+    onSendData(activeCapacity);
   };
   return (
     <div className="infoTechnicalComponent">
@@ -68,9 +77,12 @@ export default function InfoTechnicalComponent({
               className={`${capacity === activeCapacity ? "active" : ""} ${
                 !productPrices[capacity] ? "disabled" : ""
               }`}
-              onClick={() =>
-                productPrices[capacity] && setActiveCapacity(capacity)
-              }
+              onClick={() => {
+                if (productPrices[capacity]) {
+                  setActiveCapacity(capacity);
+                  sendData();
+                }
+              }}
             >
               {capacity}
             </div>
@@ -95,16 +107,15 @@ export default function InfoTechnicalComponent({
           </p>
         </div>
         <div>
-          <a
-            href="#"
-            onClick={scrollToRegisterForm}
+          <Link
+            href={productLink}
             style={{ color: "#fff" }}
             className="groupButtonMobile"
           >
             <button type="submit" className="button_buy">
-              Đặt Ngay
+              Mua Ngay
             </button>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

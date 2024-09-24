@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import "./globals.scss";
 import { Montserrat } from "next/font/google";
 import Provider from "./utils/Provider";
-
-
+// import { Provider } from "react-redux";
+// import store from "./store/index";
 const montserrat = Montserrat({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,12 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={montserrat.className}
-      >
-        <Provider>
-          {children}
-        </Provider>
+      <body className={montserrat.className}>
+        <Provider>{children}</Provider>
+        {/* <Provider store={store}>{children}</Provider> */}
       </body>
     </html>
   );

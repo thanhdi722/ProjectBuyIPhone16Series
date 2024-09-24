@@ -15,9 +15,11 @@ import iphone16DesertPro from "../../../../public/Images/iphone/iphone16_desert.
 import imagesModal from "../../../../public/Images/imagesSoSanh.jpg";
 import { RightCircleOutlined } from "@ant-design/icons";
 import { StaticImageData } from "next/image";
-import { Modal, Row, Col, Radio } from "antd";
-import { Form, Input } from "antd";
-import { FormProps } from "antd";
+import { Modal } from "antd";
+// import { useSelector } from "react-redux";
+// import { Modal, Row, Col, Radio } from "antd";
+// import { Form, Input } from "antd";
+// import { FormProps } from "antd";
 import { fetchProducts } from "../../../app/utils/utils";
 // import { FormInstance } from "antd/lib/form";
 type GraphQLResponse = {
@@ -50,6 +52,16 @@ type Product = {
 };
 
 export default function InfoTechnical() {
+  // const activeCapacity = useSelector(
+  //   (state: { product: { activeCapacity: string } }) =>
+  //     state.product.activeCapacity
+  // );
+  // console.log(activeCapacity);
+  const [data, setData] = useState("");
+  const handleDataFromChild = (childData: string) => {
+    setData(childData);
+  };
+  console.log("data", data);
   const [data16ProMax512, setData16ProMax512] =
     useState<GraphQLResponse | null>(null);
   useEffect(() => {
@@ -193,6 +205,7 @@ export default function InfoTechnical() {
             "vi-VN",
             { style: "currency", currency: "VND" }
           )}`,
+          link: "/dtdd/iphone-16-pro-max-1tb",
         },
         "512GB": {
           "Titan Đen": `${data16ProMax512?.data.route.variants[2].product.price_range.minimum_price.final_price.value.toLocaleString(
@@ -211,6 +224,7 @@ export default function InfoTechnical() {
             "vi-VN",
             { style: "currency", currency: "VND" }
           )}`,
+          link: "/dtdd/iphone-16-pro-max-1tb",
         },
         "256GB": {
           "Titan Đen": `${data16ProMax256?.data.route.variants[1].product.price_range.minimum_price.final_price.value.toLocaleString(
@@ -229,6 +243,7 @@ export default function InfoTechnical() {
             "vi-VN",
             { style: "currency", currency: "VND" }
           )}`,
+          link: "/dtdd/iphone-16-pro-max-1tb",
         },
       },
       images: {
@@ -244,8 +259,7 @@ export default function InfoTechnical() {
         { name: "Titan Tự Nhiên", colorCode: "rgb(250, 235, 215)" },
         { name: "Titan Trắng", colorCode: "rgb(220, 220, 220)" },
       ],
-      productLink:
-        "/dtdd/iphone-16-pro-max?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
+      productLink: `https://bachlongmobile.com/products/${"iphone-16-pro-max-"}${data}-chinh-hang-vn-a/`,
     },
     {
       productName: "iPhone 16 Pro",
@@ -336,8 +350,7 @@ export default function InfoTechnical() {
         { name: "Titan Tự Nhiên", colorCode: "rgb(250, 235, 215)" },
         { name: "Titan Trắng", colorCode: "rgb(220, 220, 220)" },
       ],
-      productLink:
-        "/dtdd/iphone-16-pro?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
+      productLink: `https://bachlongmobile.com/products/${"iphone-16-pro-"}${data}-chinh-hang-vn-a/`,
     },
     {
       productName: "iPhone 16 Plus",
@@ -424,8 +437,7 @@ export default function InfoTechnical() {
         { name: "Hồng", colorCode: "rgb(255, 110, 180)" },
         { name: "Xanh Lưu Ly", colorCode: "rgb(72, 118, 255)" },
       ],
-      productLink:
-        "/dtdd/iphone-16-plus?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
+      productLink: `https://bachlongmobile.com/products/${"iphone-16-plus-"}${data}-chinh-hang-vna/`,
     },
     {
       productName: "iPhone 16",
@@ -512,86 +524,88 @@ export default function InfoTechnical() {
         { name: "Hồng", colorCode: "rgb(255, 110, 180)" },
         { name: "Xanh Lưu Ly", colorCode: "rgb(72, 118, 255)" },
       ],
-      productLink:
-        "/dtdd/iphone-16?m=2&amp;gid=1&amp;pId=329136&amp;strcode=0131491004227",
+      productLink: `https://bachlongmobile.com/products/${"iphone-16-"}${data}-chinh-hang-vn-a/`,
     },
   ];
-  const [activeProduct, setActiveProduct] = useState(products[0]);
-  const [activeColor, setActiveColor] = useState(activeProduct.colors[0].name);
-  const [activeCapacity, setActiveCapacity] = useState(
-    activeProduct.capacities[0]
-  );
-  const getImageKey = (colorName: string) => {
-    return colorName.replace("Màu ", "");
-  };
-  type FieldType = {
-    userName?: string;
-    phoneNumber: string;
-    email?: string;
-    tradeIn?: string;
-  };
-  const [form] = Form.useForm<FieldType>();
-  const handleSubmit = async (values: FieldType) => {
-    const { userName, phoneNumber, email, tradeIn } = values;
-    try {
-      const values = await form.validateFields();
-      const randomNum = Math.floor(Math.random() * 10000)
-        .toString()
-        .padStart(4, "0");
+  // const [activeProduct, setActiveProduct] = useState(products[0]);
+  // const [activeColor, setActiveColor] = useState(activeProduct.colors[0].name);
+  // const [activeCapacity, setActiveCapacity] = useState(
+  //   activeProduct.capacities[0]
+  // );
+  // const getImageKey = (colorName: string) => {
+  //   return colorName.replace("Màu ", "");
+  // };
+  // type FieldType = {
+  //   userName?: string;
+  //   phoneNumber: string;
+  //   email?: string;
+  //   tradeIn?: string;
+  // };
+  // const [form] = Form.useForm<FieldType>();
+  // const handleSubmit = async (values: FieldType) => {
+  //   const { userName, phoneNumber, email, tradeIn } = values;
+  //   try {
+  //     const values = await form.validateFields();
+  //     const randomNum = Math.floor(Math.random() * 10000)
+  //       .toString()
+  //       .padStart(4, "0");
 
-      const id = "IP16" + values.phoneNumber.slice(6, 10) + "-" + randomNum;
+  //     const id = "IP16" + values.phoneNumber.slice(6, 10) + "-" + randomNum;
 
-      const data = {
-        id,
-        userName,
-        phoneNumber,
-        email,
-        product: activeProduct.productName,
-        storage: activeCapacity,
-        color: activeColor,
-        price: activeProduct.productPrices[activeCapacity][activeColor],
-        tradeIn,
-      };
+  //     const data = {
+  //       id,
+  //       userName,
+  //       phoneNumber,
+  //       email,
+  //       product: activeProduct.productName,
+  //       storage: activeCapacity,
+  //       color: activeColor,
+  //       price: activeProduct.productPrices[activeCapacity][activeColor],
+  //       tradeIn,
+  //     };
 
-      const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbway0bUP2UCWinnhAhTl1QF9vGuf_GRJcVYSYX47TG9rRpNB5WogC2VmcFBdUOXB8uY/exec",
-        {
-          method: "POST",
-          mode: "no-cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      console.log(response);
-      console.log("Form submitted successfully");
-      form.resetFields();
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+  //     const response = await fetch(
+  //       "https://script.google.com/macros/s/AKfycbway0bUP2UCWinnhAhTl1QF9vGuf_GRJcVYSYX47TG9rRpNB5WogC2VmcFBdUOXB8uY/exec",
+  //       {
+  //         method: "POST",
+  //         mode: "no-cors",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(data),
+  //       }
+  //     );
+  //     console.log(response);
+  //     console.log("Form submitted successfully");
+  //     form.resetFields();
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
-  };
+  // const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
+  //   console.log("Success:", values);
+  // };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
-  ) => {
-    console.log("Failed:", errorInfo);
-  };
-  const handleProductChange = (product: Product) => {
-    setActiveProduct(product);
-    setActiveCapacity(product.capacities[0]);
-    setActiveColor(product.colors[0].name);
-  };
+  // const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  //   errorInfo
+  // ) => {
+  //   console.log("Failed:", errorInfo);
+  // };
+  // const handleProductChange = (product: Product) => {
+  //   setActiveProduct(product);
+  //   setActiveCapacity(product.capacities[0]);
+  //   setActiveColor(product.colors[0].name);
+  // };
 
-  const handleCapacityChange = (capacity: string) => {
-    setActiveCapacity(capacity);
-    setActiveColor(activeProduct.colors[0].name);
-  };
-
+  // const handleCapacityChange = (capacity: string) => {
+  //   setActiveCapacity(capacity);
+  //   setActiveColor(activeProduct.colors[0].name);
+  // };
+  // const activeCapacity = useSelector(
+  //   (state: any) => state.product.activeCapacity
+  // );
+  // console.log("dataaa", activeCapacity);
   return (
     <div className="container_info_technical">
       <div className="container">
@@ -603,9 +617,9 @@ export default function InfoTechnical() {
                 key={index}
                 className="productItem"
                 onClick={() => {
-                  setActiveProduct(product);
-                  setActiveColor(product.colors[0].name);
-                  setActiveCapacity(product.capacities[0]);
+                  // setActiveProduct(product);
+                  // setActiveColor(product.colors[0].name);
+                  // setActiveCapacity(product.capacities[0]);
                 }}
               >
                 <InfoTechnicalComponent
@@ -615,6 +629,7 @@ export default function InfoTechnical() {
                   images={product.images}
                   capacities={product.capacities}
                   colors={product.colors}
+                  onSendData={handleDataFromChild}
                 />
               </div>
             ))}
@@ -643,7 +658,7 @@ export default function InfoTechnical() {
           />
         </Modal>
 
-        <Row className="row_info_technical" id="registerForm">
+        {/* <Row className="row_info_technical" id="registerForm">
           <Col
             span={8}
             className="col8_info_technical"
@@ -796,7 +811,7 @@ export default function InfoTechnical() {
               </button>
             </Form>
           </Col>
-        </Row>
+        </Row> */}
       </div>
     </div>
   );
