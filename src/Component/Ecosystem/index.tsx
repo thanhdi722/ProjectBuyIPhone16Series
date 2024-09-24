@@ -67,7 +67,7 @@ fragment ProductInterfaceField on ProductInterface {
 const variables = {
   "filter": {
     "category_uid": {
-      "eq": "NjQ=",
+      "eq": "MzIz",
     },
   },
   "pageSize": 200,
@@ -124,7 +124,7 @@ const Ecosystem: React.FC = () => {
     return <div>Error loading data</div>;
   }
 
-  const tabs = ['All', 'Ốp lưng', 'Airpod', 'Cường Lực', 'Bộ kính dán'];
+  const tabs = ['All', 'Ốp lưng', 'Airpod', 'Apple Watch', 'Bộ kính dán', 'Sạc'];
 
   return (
     <div className='ecosystem'>
