@@ -9,7 +9,7 @@ const productUrls = {
     "iphone-16-pro-256gb": "iphone-16-pro-256gb-chinh-hang-vn-a",
     "iphone-16-pro-128gb": "iphone-16-pro-128gb-chinh-hang-vn-a",
     "iphone-16-plus-256gb": "iphone-16-plus-256gb-chinh-hang-vn-a",
-    "iphone-16-plus-128gb": "iphone-16-plus-128gb-chinh-hang-vna",
+    "iphone-16-plus-128gb": "iphone-16-plus-128gb-chinh-hang-vn-a",
     "iphone-16-512gb": "iphone-16-512gb-chinh-hang-vn-a",
     "iphone-16-256gb": "iphone-16-256gb-chinh-hang-vn-a",
     "iphone-16-128gb": "iphone-16-128gb-chinh-h-ng-vn-a",

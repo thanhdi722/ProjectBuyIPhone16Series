@@ -18,14 +18,14 @@ import uudai5 from "../../../../public/Images/5.png";
 // import icon_khien from "../../../../public/Images/iconKhien.png";
 // import icon_pos from "../../../../public/Images/iconPos.png";
 // import gif from "../../../../public/Images/gif.png";
-import style from "./Header.module.css";
+import "../../../Style/Header.scss";
 // import { Row, Col } from "antd";
 
 function HeaderConponent() {
   return (
-    <div className={style.header_container}>
-      <Image src={HeaderPC} alt="headerPC" className={style.ImagesHeaderPC} />
-      <Image src={HeaderMB} alt="headerPC" className={style.ImagesHeaderMB} />
+    <div className="header_container">
+      <Image src={HeaderPC} alt="headerPC" className="ImagesHeaderPC" />
+      <Image src={HeaderMB} alt="headerPC" className="ImagesHeaderMB" />
       <div className="container">
         {/* <div className={style.promo_banner_container}>
           <h2 className={style.promo_title}>Ưu đãi độc quyền 5 sao</h2>
@@ -124,23 +124,23 @@ function HeaderConponent() {
             </div>
           </div>
         </div> */}
-        <div className={style.uudai_container}>
-          <Image src={uudai1} alt="uudai1" className={style.uudai_images} />
-          <Image src={uudai2} alt="uudai2" className={style.uudai_images} />
-          <Image src={uudai3} alt="uudai3" className={style.uudai_images} />
-          <Image src={uudai4} alt="uudai4" className={style.uudai_images} />
-          <Image src={uudai5} alt="uudai5" className={style.uudai_images} />
+        <div className="uudai_container">
+          <Image src={uudai1} alt="uudai1" className="uudai_images" />
+          <Image src={uudai2} alt="uudai2" className="uudai_images" />
+          <Image src={uudai3} alt="uudai3" className="uudai_images" />
+          <Image src={uudai4} alt="uudai4" className="uudai_images" />
+          <Image src={uudai5} alt="uudai5" className="uudai_images" />
         </div>
-        <h2 className={style.promo_title}>Ưu Đãi Trả Góp Siêu Hời</h2>
-        <div className={style.dichvu_container}>
-          <Image src={dichvu8} alt="dichvu8" className={style.dichvu_images} />
-          <Image src={dichvu5} alt="dichvu5" className={style.dichvu_images} />
-          <Image src={dichvu6} alt="dichvu6" className={style.dichvu_images} />
-          <Image src={dichvu7} alt="dichvu7" className={style.dichvu_images} />
-          <Image src={dichvu1} alt="dichvu1" className={style.dichvu_images} />
-          <Image src={dichvu2} alt="dichvu2" className={style.dichvu_images} />
-          <Image src={dichvu3} alt="dichvu3" className={style.dichvu_images} />
-          <Image src={dichvu4} alt="dichvu4" className={style.dichvu_images} />
+        <h2 className="promo_title">Ưu Đãi Trả Góp Siêu Hời</h2>
+        <div className="dichvu_container">
+          <Image src={dichvu8} alt="dichvu8" className="dichvu_images" />
+          <Image src={dichvu5} alt="dichvu5" className="dichvu_images" />
+          <Image src={dichvu6} alt="dichvu6" className="dichvu_images" />
+          <Image src={dichvu7} alt="dichvu7" className="dichvu_images" />
+          <Image src={dichvu1} alt="dichvu1" className="dichvu_images" />
+          <Image src={dichvu2} alt="dichvu2" className="dichvu_images" />
+          <Image src={dichvu3} alt="dichvu3" className="dichvu_images" />
+          <Image src={dichvu4} alt="dichvu4" className="dichvu_images" />
         </div>
       </div>
     </div>

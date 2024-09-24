@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import "./infoStyle.css";
+import "../../Style/infoStyle.scss";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
 import Link from "next/link";
@@ -61,9 +61,8 @@ export default function InfoTechnicalComponent({
             <div
               key={color.name}
               title={color.name}
-              className={`${
-                color.name === activeColor ? `active selected` : ""
-              }`}
+              className={`${color.name === activeColor ? `active selected` : ""
+                }`}
               style={{ backgroundColor: color.colorCode }}
               onClick={() => setActiveColor(color.name)}
             ></div>
@@ -74,9 +73,8 @@ export default function InfoTechnicalComponent({
             <div
               key={capacity}
               title={capacity}
-              className={`${capacity === activeCapacity ? "active" : ""} ${
-                !productPrices[capacity] ? "disabled" : ""
-              }`}
+              className={`${capacity === activeCapacity ? "active" : ""} ${!productPrices[capacity] ? "disabled" : ""
+                }`}
               onClick={() => {
                 if (productPrices[capacity]) {
                   setActiveCapacity(capacity);

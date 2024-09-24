@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import ImagesInfoIP16 from "../../../../public/Images/imagesInfoIp16.png";
 import InfoIP16Plus from "../../../../public/Images/info-iphone-16-16-plus.png";
-import style from "./ImagesInfo.module.css";
+import "../../../Style/ImagesInfo.scss";
 
 function ImagesInfo() {
   const [activeButton, setActiveButton] = useState<number>(1);
@@ -15,10 +15,10 @@ function ImagesInfo() {
 
   return (
     <div style={{ backgroundColor: "#1d1d1f" }}>
-      <div className={style.Container}>
-        <div className={style.tabs_wrapper}>
+      <div className="Container">
+        <div className="tabs_wrapper">
           <button
-            className={`${style.tab_item} ${style.button}`}
+            className={`${"tab_item"} ${"button"}`}
             onClick={() => handleButtonClick(1)}
             style={{
               backgroundColor: activeButton === 1 ? "White" : "black",
@@ -28,7 +28,7 @@ function ImagesInfo() {
             iPhone 16 Pro
           </button>
           <button
-            className={`${style.tab_item} ${style.button}`}
+            className={`${"tab_item"} ${"button"}`}
             onClick={() => handleButtonClick(2)}
             style={{
               backgroundColor: activeButton === 2 ? "white" : "black",
@@ -38,7 +38,7 @@ function ImagesInfo() {
             iPhone 16
           </button>
         </div>
-        <div className={`${style.content} ${expanded ? style.expanded : ""}`}>
+        <div className={`${"content"} ${expanded ? "expanded" : ""}`}>
           {activeButton === 1 && (
             <Image src={ImagesInfoIP16} alt="Description of iPhone 16 Pro" />
           )}
@@ -47,16 +47,16 @@ function ImagesInfo() {
           )}
         </div>
         <button
-          className={style.expandButton}
+          className={`${"expandButton"}`}
           onClick={() => setExpanded(!expanded)}
         >
           {expanded ? "Thu gọn" : "Xem thêm"}
         </button>
       </div>
-      <div className={style.ContainerMb}>
-        <div className={style.tabs_wrapper}>
+      <div className={`${"ContainerMb"}`}>
+        <div className={`${"tabs_wrapper"}`}>
           <button
-            className={`${style.tab_item} ${style.button}`}
+            className={`${"tab_item"} ${"button"}`}
             onClick={() => handleButtonClick(1)}
             style={{
               backgroundColor: activeButton === 1 ? "White" : "black",
@@ -66,7 +66,7 @@ function ImagesInfo() {
             iPhone 16 Pro
           </button>
           <button
-            className={`${style.tab_item} ${style.button}`}
+            className={`${"tab_item"} ${"button"}`}
             onClick={() => handleButtonClick(2)}
             style={{
               backgroundColor: activeButton === 2 ? "white" : "black",

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import "./InfoTechnical.css";
+import "../../../Style/InfoTechnical.scss";
 import InfoTechnicalComponent from "../../../Component/InfoTechnicalComponent/InfoTechnicalComponent";
 import iphone16Green from "../../../../public/Images/iphone/iphone-16-green.png";
 import iphone16Black from "../../../../public/Images/iphone/iphone16_Black.png";
@@ -437,7 +437,7 @@ export default function InfoTechnical() {
         { name: "Hồng", colorCode: "rgb(255, 110, 180)" },
         { name: "Xanh Lưu Ly", colorCode: "rgb(72, 118, 255)" },
       ],
-      productLink: `https://bachlongmobile.com/products/${"iphone-16-plus-"}${data}-chinh-hang-vna/`,
+      productLink: `https://bachlongmobile.com/products/${"iphone-16-plus-"}${data}-chinh-hang-vn-a/`,
     },
     {
       productName: "iPhone 16",
