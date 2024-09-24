@@ -2,14 +2,20 @@ import React from "react";
 import HeaderConponent from "../../Component/BuyPhoneComponent/HeaderComponent/HeaderConponent";
 import UpgradeList from "@/Component/UpgradeList";
 import Ecosystem from "@/Component/Ecosystem";
+import InfoTechnical from "../../Component/BuyPhoneComponent/InfoTechnical/InfoTechnical";
+// import PrioritizePage from "../../Component/BuyPhoneComponent/prioritizePage/prioritizePage";
+import ImagesInfo from "../../Component/BuyPhoneComponent/ImagesInfo/ImagesInfo";
 function page() {
-    return (
-        <div className="bg-page">
-            <HeaderConponent />
-            <UpgradeList />
-            <Ecosystem />
-        </div>
-    );
+  return (
+    <div className="bg-page">
+      <HeaderConponent />
+      <InfoTechnical />
+      {/* <PrioritizePage /> */}
+      <UpgradeList />
+      <Ecosystem />
+      <ImagesInfo />
+    </div>
+  );
 }
 
 export default page;
