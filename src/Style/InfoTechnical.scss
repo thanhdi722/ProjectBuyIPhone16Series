@@ -219,6 +219,9 @@
   }
 }
 @media (max-width: 768px) {
+  .productList {
+    gap: 5px;
+  }
   .title {
     font-size: 16px;
   }
@@ -229,7 +232,7 @@
     flex: 0 0 48vw;
     scroll-snap-align: start;
     margin-right: 0vw;
-    width: 49vw;
+    width: 48vw;
     margin: 0 auto;
   }
 
@@ -262,7 +265,6 @@
     display: block;
   }
   .container {
-    padding: 0;
   }
   .btn_productIphone_item {
     padding: 5px 5px;

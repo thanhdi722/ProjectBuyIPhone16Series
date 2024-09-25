@@ -1,13 +1,13 @@
-'use client'
-import React, { useState, useEffect } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
-import Image from 'next/image';
-import 'swiper/css';
-import 'swiper/css/navigation';
-import { useQuery } from '@tanstack/react-query';
-import Link from 'next/link';
-import { Spin } from 'antd';
+"use client";
+import React, { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import Image from "next/image";
+import "swiper/css";
+import "swiper/css/navigation";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { Spin } from "antd";
 
 export interface Product {
   id: number;
@@ -65,20 +65,20 @@ fragment ProductInterfaceField on ProductInterface {
 `;
 
 const variables = {
-  "filter": {
-    "category_uid": {
-      "eq": "MzIz",
+  filter: {
+    category_uid: {
+      eq: "MzIz",
     },
   },
-  "pageSize": 200,
-  "currentPage": 1,
+  pageSize: 200,
+  currentPage: 1,
 };
 
 async function fetchEcosystemData() {
-  const response = await fetch('https://beta-api.bachlongmobile.com/graphql', {
-    method: 'POST',
+  const response = await fetch("https://beta-api.bachlongmobile.com/graphql", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       query,
@@ -93,16 +93,16 @@ async function fetchEcosystemData() {
 
 const Ecosystem: React.FC = () => {
   const { data, error, isLoading } = useQuery<Product[]>({
-    queryKey: ['ecosystemData'],
+    queryKey: ["ecosystemData"],
     queryFn: fetchEcosystemData,
     staleTime: 300000,
   });
 
-  const [activeTab, setActiveTab] = useState<string>('All');
+  const [activeTab, setActiveTab] = useState<string>("Tất cả");
   const [filteredData, setFilteredData] = useState<Product[]>([]);
 
   useEffect(() => {
-    if (activeTab === 'All') {
+    if (activeTab === "Tất cả") {
       setFilteredData(data || []);
     } else {
       const filtered = data?.filter((product) =>
@@ -114,7 +114,7 @@ const Ecosystem: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className='loading'>
+      <div className="loading">
         <Spin />
       </div>
     );
@@ -124,31 +124,41 @@ const Ecosystem: React.FC = () => {
     return <div>Error loading data</div>;
   }
 
-  const tabs = ['All', 'Ốp lưng', 'Airpod', 'Apple Watch', 'Bộ kính dán', 'Sạc'];
+  const tabs = [
+    "Tất cả",
+    "Apple Watch",
+    "AirPods",
+    "Cáp Sạc",
+    "Ốp Lưng",
+    "Bộ Kính Dán",
+  ];
 
   return (
-    <div className='ecosystem'>
-      <div className='upgrade-list'>
-        <div className='container'>
-          <div className='upgrade'>
-            <div className='upgrade-header'>
-              <h3 className='upgrade-header-tt'>Hệ sinh thái Apple</h3>
+    <div className="ecosystem">
+      <div className="upgrade-list">
+        <div className="container">
+          <div className="upgrade">
+            <div className="upgrade-header">
+              <h3 className="upgrade-header-tt">Hệ sinh thái Apple</h3>
             </div>
 
-            <div className='tabs'>
+            <div className="tabs">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => setActiveTab(tab)}
-                  className={activeTab === tab ? 'tab active' : 'tab'}
+                  className={activeTab === tab ? "tab active" : "tab"}
                   style={{
-                    color: activeTab === tab ? 'white' : '#000',
-                    backgroundColor: activeTab === tab ? '#ef373e' : '#f1f1f1',
-                    border: activeTab === tab ? '1px solid #ef373e' : '1px solid #ccc',
-                    padding: '10px 20px',
-                    margin: '5px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
+                    color: activeTab === tab ? "white" : "#000",
+                    backgroundColor: activeTab === tab ? "#ef373e" : "#f1f1f1",
+                    border:
+                      activeTab === tab
+                        ? "1px solid #ef373e"
+                        : "1px solid #ccc",
+                    padding: "10px 20px",
+                    margin: "5px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
                   }}
                 >
                   {tab}
@@ -159,11 +169,11 @@ const Ecosystem: React.FC = () => {
             <Swiper
               modules={[Navigation]}
               spaceBetween={10}
-              slidesPerView='auto'
+              slidesPerView="auto"
               speed={1000}
               navigation
               breakpoints={{
-                400: {
+                300: {
                   slidesPerView: 2,
                 },
                 576: {
@@ -182,12 +192,12 @@ const Ecosystem: React.FC = () => {
                   <Link
                     href={`https://bachlongmobile.com/products/${product.url_key}`}
                     passHref
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    style={{ textDecoration: 'none', color: 'black' }}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: "none", color: "black" }}
                   >
-                    <div className='upgrade-item'>
-                      <div className='upgrade-item-img'>
+                    <div className="upgrade-item">
+                      <div className="upgrade-item-img">
                         <Image
                           src={product.image.url}
                           width={1400}
@@ -196,15 +206,22 @@ const Ecosystem: React.FC = () => {
                           alt={`product-${index}`}
                         />
                       </div>
-                      <div className='upgrade-item-content'>
-                        <h4 className='upgrade-item-content-tt'>{product.name}</h4>
-                        <div className='upgrade-item-content-body'>
-                          <span className='upgrade-item-content-body-tt'>Giá: </span>
-                          <div className='upgrade-item-content-body-price'>
+                      <div className="upgrade-item-content">
+                        <h4 className="upgrade-item-content-tt">
+                          {product.name}
+                        </h4>
+                        <div className="upgrade-item-content-body">
+                          <span className="upgrade-item-content-body-tt">
+                            Giá:{" "}
+                          </span>
+                          <div className="upgrade-item-content-body-price">
                             {product.price_range.minimum_price.final_price.value.toLocaleString(
-                              'vi-VN'
-                            )}{' '}
-                            {product.price_range.minimum_price.final_price.currency}
+                              "vi-VN"
+                            )}{" "}
+                            {
+                              product.price_range.minimum_price.final_price
+                                .currency
+                            }
                           </div>
                         </div>
                       </div>

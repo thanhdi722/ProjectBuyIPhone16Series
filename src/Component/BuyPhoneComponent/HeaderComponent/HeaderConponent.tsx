@@ -15,6 +15,7 @@ import uudai2 from "../../../../public/Images/2.png";
 import uudai3 from "../../../../public/Images/3.png";
 import uudai4 from "../../../../public/Images/4.png";
 import uudai5 from "../../../../public/Images/5.png";
+import cong from "../../../../public/Images/viber_image_2024-09-24_16-13-09-438.png";
 // import icon_khien from "../../../../public/Images/iconKhien.png";
 // import icon_pos from "../../../../public/Images/iconPos.png";
 // import gif from "../../../../public/Images/gif.png";
@@ -126,21 +127,65 @@ function HeaderConponent() {
         </div> */}
         <div className="uudai_container">
           <Image src={uudai1} alt="uudai1" className="uudai_images" />
+          <Image src={cong} alt="cong" className="cong_images" />
           <Image src={uudai2} alt="uudai2" className="uudai_images" />
+          <div className="cong_imagesMB_container">
+            <Image src={cong} alt="cong" className="cong_imagesMB" />
+          </div>
+          <Image src={cong} alt="cong" className="cong_images" />
           <Image src={uudai3} alt="uudai3" className="uudai_images" />
+          <Image src={cong} alt="cong" className="cong_images" />
           <Image src={uudai4} alt="uudai4" className="uudai_images" />
+          <Image src={cong} alt="cong" className="cong_images" />
+          <div className="cong_imagesMB_container">
+            <Image src={cong} alt="cong" className="cong_imagesMB" />
+          </div>
           <Image src={uudai5} alt="uudai5" className="uudai_images" />
         </div>
         <h2 className="promo_title">Ưu Đãi Trả Góp Siêu Hời</h2>
         <div className="dichvu_container">
-          <Image src={dichvu8} alt="dichvu8" className="dichvu_images" />
-          <Image src={dichvu5} alt="dichvu5" className="dichvu_images" />
-          <Image src={dichvu6} alt="dichvu6" className="dichvu_images" />
-          <Image src={dichvu7} alt="dichvu7" className="dichvu_images" />
-          <Image src={dichvu1} alt="dichvu1" className="dichvu_images" />
-          <Image src={dichvu2} alt="dichvu2" className="dichvu_images" />
-          <Image src={dichvu3} alt="dichvu3" className="dichvu_images" />
-          <Image src={dichvu4} alt="dichvu4" className="dichvu_images" />
+          <a href="#" className="dichvu_images">
+            <Image src={dichvu8} alt="dichvu8" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/home-pay-later/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu5} alt="dichvu5" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/tra-gop-kredivo/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu6} alt="dichvu6" />
+          </a>
+          <a href="#" className="dichvu_images">
+            <Image src={dichvu7} alt="dichvu7" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/tra-gop-tai-chinh/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu1} alt="dichvu1" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/tra-gop-tai-chinh/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu2} alt="dichvu2" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/tra-gop-tai-chinh/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu3} alt="dichvu3" />
+          </a>
+          <a
+            href="https://bachlongmobile.com/promotion/tra-gop-tai-chinh/"
+            className="dichvu_images"
+          >
+            <Image src={dichvu4} alt="dichvu4" />
+          </a>
         </div>
       </div>
     </div>
