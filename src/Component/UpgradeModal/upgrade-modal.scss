@@ -5,6 +5,11 @@
   @media screen and (max-width: 850px) {
     width: 90% !important;
   }
+  @media screen and (max-width: 576px) {
+    width: 100% !important;
+    height: 60rem;
+    overflow-y: auto;
+  }
 
   &-list {
     display: grid;
@@ -17,9 +22,7 @@
     }
     @media screen and (max-width: 992px) {
       grid-template-columns: repeat(2, 1fr);
-    }
-    @media screen and (max-width: 675px) {
-      grid-template-columns: repeat(1, 1fr);
+      padding: 0.6rem;
     }
 
     &-item {
@@ -31,6 +34,10 @@
       gap: 1.2rem;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border: 0.1rem solid #cccc;
+
+      @media screen and (max-width: 576px) {
+        gap: 0.6rem;
+      }
 
       &-img {
         position: relative;
@@ -62,6 +69,13 @@
         &-tt {
           font-size: 1.6rem;
           font-weight: 500;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          @media screen and (max-width: 576px) {
+            font-size: 1.2rem;
+          }
         }
 
         &-body {
@@ -74,6 +88,11 @@
             padding: 0.4rem;
             border-radius: 0.8rem;
             color: white;
+            @media screen and (max-width: 576px) {
+              font-size: 0.8rem;
+              padding: 0.2rem;
+              border-radius: 0.2rem;
+            }
 
             &.red-bg {
               background: #ef373e;
@@ -93,6 +112,9 @@
             color: #ef373e;
             font-weight: 500;
             width: max-content;
+            @media screen and (max-width: 576px) {
+              font-size: 1rem;
+            }
           }
         }
 

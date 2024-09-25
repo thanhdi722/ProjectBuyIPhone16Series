@@ -112,6 +112,17 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isModalOpen, selectedProduc
     return categoryName.includes('iphone 16 series');
   });
 
+  const handleProductClick = () => {
+    handleCancel();
+    const scrollToInfoTechnical = () => {
+      const infoSection = document.querySelector('.container_info_technical');
+      if (infoSection) {
+        infoSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    scrollToInfoTechnical();
+  };
+
 
 
   return (
@@ -134,7 +145,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isModalOpen, selectedProduc
             const payMore = buyupPrice ? finalPrice - buyupPrice : null;
 
             return (
-              <div className='modal-list-item' key={product.id}>
+              <div className='modal-list-item' key={product.id} onClick={handleProductClick}>
                 <div className="modal-list-item-img">
                   <Image
                     src={product?.image?.url}
@@ -151,15 +162,15 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isModalOpen, selectedProduc
                   <div className='modal-list-item-content-body'>
                     <span className='modal-list-item-content-body-tt red-bg'>Giá dự kiến</span>
                     <div className="modal-list-item-content-body-price">
-                      {finalPrice.toLocaleString('vi-VN')} {product.price_range.minimum_price.final_price.currency}
+                      {finalPrice.toLocaleString('vi-VN')}đ
                     </div>
                   </div>
                   <div className='modal-list-item-content-body'>
-                    <span className='modal-list-item-content-body-tt blue-bg'>Giá thu dự kiến</span>
+                    <span className='modal-list-item-content-body-tt blue-bg'>Giá thu đến</span>
                     <div className="modal-list-item-content-body-price">
                       <div className="modal-list-item-content-body-price">
                         {selectedProduct?.price
-                          ? Number(selectedProduct.price).toLocaleString('vi-VN') + ' VNĐ'
+                          ? Number(selectedProduct.price).toLocaleString('vi-VN') + 'đ'
                           : '---'}
                       </div>
                     </div>
@@ -167,7 +178,7 @@ const UpgradeModal: React.FC<UpgradeModalProps> = ({ isModalOpen, selectedProduc
                   <div className='modal-list-item-content-body'>
                     <span className='modal-list-item-content-body-tt yellow-bg'>Trả thêm</span>
                     <div className="modal-list-item-content-body-price">
-                      {payMore ? payMore.toLocaleString('vi-VN') : '---'} {buyupPrice && product.price_range.minimum_price.final_price.currency}
+                      {payMore ? payMore.toLocaleString('vi-VN') : '---'}đ
                     </div>
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import "../../../Style/InfoTechnical.scss";
 import InfoTechnicalComponent from "../../../Component/InfoTechnicalComponent/InfoTechnicalComponent";
@@ -52,6 +52,9 @@ type Product = {
 };
 
 export default function InfoTechnical() {
+
+  const infoTechnicalRef = useRef<HTMLDivElement>(null);
+
   // const activeCapacity = useSelector(
   //   (state: { product: { activeCapacity: string } }) =>
   //     state.product.activeCapacity
@@ -607,7 +610,7 @@ export default function InfoTechnical() {
   // );
   // console.log("dataaa", activeCapacity);
   return (
-    <div className="container_info_technical">
+    <div className="container_info_technical" ref={infoTechnicalRef}>
       <div className="container">
         <div className="infoTechnical">
           <h4 className="title">Hãy chọn ngay iPhone 16 Series cho bạn nhé!</h4>
